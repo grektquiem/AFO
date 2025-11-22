@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redireccionando...</title>
+    <script>
+        sessionStorage.redirect = location.href;
+        location.replace('/' + location.pathname.split('/')[1]);
+    </script>
+</head>
+<body>
+    Redireccionando a la página principal...
+</body>
+</html>
