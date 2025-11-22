@@ -1,4 +1,7 @@
-// Utilidades generales para la aplicación
+// Utilidades generales para la aplicación INFINITE AFO
+
+// Configuración específica para el repositorio AFO
+const REPO_NAME = 'AFO';
 
 // Función para detectar si estamos en GitHub Pages
 function isGitHubPages() {
@@ -8,10 +11,7 @@ function isGitHubPages() {
 // Función para obtener la ruta base
 function getBasePath() {
     if (isGitHubPages()) {
-        const path = window.location.pathname;
-        // Obtener el nombre del repositorio de la URL
-        const repoName = path.split('/')[1];
-        return repoName ? '/' + repoName : '';
+        return '/' + REPO_NAME;
     }
     return '';
 }
@@ -20,39 +20,57 @@ function getBasePath() {
 function resolvePath(path) {
     const base = getBasePath();
     
-    if (path.startsWith('./')) {
-        return base + path.substring(1);
-    }
-    
-    if (path.startsWith('/')) {
-        return base + path;
-    }
-    
+    // Si ya es una ruta completa, no hacer cambios
     if (path.startsWith('http')) {
         return path;
     }
     
+    // Si la ruta ya incluye el base path, no duplicar
+    if (path.includes(REPO_NAME)) {
+        return path;
+    }
+    
+    // Para rutas relativas
+    if (path.startsWith('./')) {
+        return base + path.substring(1);
+    }
+    
+    // Para rutas absolutas
+    if (path.startsWith('/')) {
+        return base + path;
+    }
+    
+    // Para rutas sin slash
     return base + '/' + path;
 }
 
 // Función para redireccionar correctamente
 function redirectTo(path) {
-    window.location.href = resolvePath(path);
+    const resolvedPath = resolvePath(path);
+    console.log('Redirigiendo a:', resolvedPath);
+    window.location.href = resolvedPath;
 }
 
 // Función para verificar autenticación (común a todas las páginas)
 function checkAuth() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const isAuthPage = window.location.pathname.includes('index.html') || 
-                      window.location.pathname.includes('registrarse.html') ||
-                      window.location.pathname.includes('contraseña-olvidada.html');
+    const currentPath = window.location.pathname;
+    
+    console.log('Verificando autenticación para:', currentPath);
+    console.log('Usuario actual:', currentUser);
+    
+    const isAuthPage = currentPath.includes('index.html') || 
+                      currentPath.includes('registrarse.html') ||
+                      currentPath.includes('contraseña-olvidada.html');
     
     if (currentUser && isAuthPage) {
+        console.log('Usuario autenticado en página de auth, redirigiendo a dashboard');
         redirectTo('dashboard.html');
         return null;
     }
     
     if (!currentUser && !isAuthPage) {
+        console.log('Usuario no autenticado, redirigiendo a login');
         redirectTo('index.html');
         return null;
     }
@@ -142,17 +160,13 @@ function loadFromLocalStorage(key) {
     }
 }
 
-// Función para limpiar datos específicos de localStorage
-function clearStorageData(keys) {
-    if (Array.isArray(keys)) {
-        keys.forEach(key => localStorage.removeItem(key));
-    } else {
-        localStorage.removeItem(keys);
-    }
-}
-
 // Función para inicializar la página con autenticación
 function initializePage() {
+    console.log('=== INICIALIZANDO PÁGINA ===');
+    console.log('Repositorio:', REPO_NAME);
+    console.log('Ruta base:', getBasePath());
+    console.log('URL actual:', window.location.href);
+    
     // Verificar autenticación
     const user = checkAuth();
     
@@ -174,8 +188,6 @@ function initializePage() {
     }
     
     console.log('Página inicializada correctamente');
-    console.log('Ruta base:', getBasePath());
-    console.log('Usuario:', user);
 }
 
 // Inicializar cuando el DOM esté cargado
@@ -183,6 +195,7 @@ document.addEventListener('DOMContentLoaded', initializePage);
 
 // Exportar funciones para uso global
 window.AppUtils = {
+    REPO_NAME,
     isGitHubPages,
     getBasePath,
     resolvePath,
@@ -194,7 +207,6 @@ window.AppUtils = {
     showNotification,
     saveToLocalStorage,
     loadFromLocalStorage,
-    clearStorageData,
     checkAuth,
     loadUserInfo
 };
