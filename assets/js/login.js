@@ -13,6 +13,8 @@ function validateLogin(event) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     
+    console.log('Intentando login con:', username, password);
+    
     // Combinar usuarios predefinidos con usuarios registrados
     const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
     const allUsers = [...users, ...registeredUsers];
@@ -32,11 +34,20 @@ function validateLogin(event) {
         // Mostrar mensaje de éxito
         showMessage(`¡Bienvenido ${user.name}!`, 'success');
         
+        console.log('Login exitoso, redirigiendo...');
+        
         // Redirigir al dashboard después de 1 segundo
         setTimeout(() => {
-            window.location.href = './dashboard.html';
+            // Usar la función de redirección de utils.js
+            if (window.AppUtils && window.AppUtils.redirectTo) {
+                window.AppUtils.redirectTo('dashboard.html');
+            } else {
+                // Fallback si utils.js no está cargado
+                window.location.href = 'dashboard.html';
+            }
         }, 1000);
     } else {
+        console.log('Credenciales incorrectas');
         showMessage('Usuario o contraseña incorrectos', 'error');
     }
 }
@@ -71,20 +82,39 @@ function showMessage(message, type) {
 // Función para recuperar contraseña
 function handleForgotPassword(e) {
     e.preventDefault();
-    window.location.href = './contraseña-olvidada.html';
+    console.log('Navegando a recuperar contraseña');
+    
+    if (window.AppUtils && window.AppUtils.redirectTo) {
+        window.AppUtils.redirectTo('contraseña-olvidada.html');
+    } else {
+        window.location.href = 'contraseña-olvidada.html';
+    }
 }
 
 // Función para manejar el registro
 function handleRegister(e) {
     e.preventDefault();
-    window.location.href = './registrarse.html';
+    console.log('Navegando a registro');
+    
+    if (window.AppUtils && window.AppUtils.redirectTo) {
+        window.AppUtils.redirectTo('registrarse.html');
+    } else {
+        window.location.href = 'registrarse.html';
+    }
 }
 
 // Función para verificar si ya hay un usuario logueado
 function checkExistingSession() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('Usuario actual en sesión:', currentUser);
+    
     if (currentUser && window.location.pathname.includes('index.html')) {
-        window.location.href = './dashboard.html';
+        console.log('Ya hay sesión, redirigiendo a dashboard');
+        if (window.AppUtils && window.AppUtils.redirectTo) {
+            window.AppUtils.redirectTo('dashboard.html');
+        } else {
+            window.location.href = 'dashboard.html';
+        }
     }
 }
 
@@ -142,16 +172,21 @@ function initializeApp() {
     const forgotPasswordBtn = document.getElementById('forgotPassword');
     const registerBtn = document.getElementById('register');
     
+    console.log('Inicializando aplicación login...');
+    
     if (loginForm) {
         loginForm.addEventListener('submit', validateLogin);
+        console.log('Formulario de login configurado');
     }
     
     if (forgotPasswordBtn) {
         forgotPasswordBtn.addEventListener('click', handleForgotPassword);
+        console.log('Botón recuperar contraseña configurado');
     }
     
     if (registerBtn) {
         registerBtn.addEventListener('click', handleRegister);
+        console.log('Botón registro configurado');
     }
     
     // Agregar funcionalidad de mostrar/ocultar contraseña
@@ -159,6 +194,9 @@ function initializeApp() {
     
     // Verificar sesión existente
     checkExistingSession();
+    
+    // Debug: mostrar usuarios disponibles
+    console.log('Usuarios disponibles:', users.map(u => u.username));
 }
 
 // Inicializar cuando el DOM esté cargado
