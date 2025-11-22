@@ -21,9 +21,15 @@ let performanceChart = null;
 // Función para verificar autenticación
 function checkAuthentication() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('Verificando autenticación en dashboard:', currentUser);
     
     if (!currentUser) {
-        window.location.href = 'index.html';
+        console.log('No hay usuario, redirigiendo a login');
+        if (window.AppUtils && window.AppUtils.redirectTo) {
+            window.AppUtils.redirectTo('index.html');
+        } else {
+            window.location.href = 'index.html';
+        }
         return null;
     }
     
@@ -232,4 +238,5 @@ function initializeDashboard() {
 }
 
 // Inicializar cuando el DOM esté cargado
+
 document.addEventListener('DOMContentLoaded', initializeDashboard);
