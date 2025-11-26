@@ -26,7 +26,7 @@ const exercises = {
             {
                 text: "¿A qué distancia cae el proyectil?",
                 type: "numeric",
-                answer: "125",
+                answer: "250",
                 unit: "metros", 
                 hint: "Encuentra cuando h(t) = 0 y calcula la distancia horizontal"
             }
@@ -58,7 +58,7 @@ const exercises = {
             {
                 text: "¿En qué posición se encuentra en t = 0.5 segundos?",
                 type: "numeric",
-                answer: "3",
+                answer: "2",
                 unit: "cm",
                 hint: "Sustituye t=0.5 en la función"
             }
@@ -367,4 +367,5 @@ function initializeExercisePage() {
 
 // Inicializar cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', initializeExercisePage);
+
 
