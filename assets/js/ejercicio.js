@@ -33,34 +33,34 @@ const exercises = {
         ]
     },
     trigonometric: {
-        title: "Ondas Senoidales - Muelle",
+        title: "Ondas Senoidales - Péndulo Simple",
         module: "Funciones Trigonométricas", 
-        difficulty: "Intermedio",
-        description: "Analiza el movimiento armónico simple de un muelle",
-        image: "/AFO/assets/img/E2.png", // Si tienes otra imagen para trigonométricas
-        imageCaption: "Movimiento oscilatorio del muelle",
-        context: "Un muelle sigue un movimiento armónico simple descrito por la función: x(t) = 2·sin(πt) + 3·cos(πt), donde x es la posición en cm y t el tiempo en segundos.",
+        difficulty: "Básico",
+        description: "Analiza el movimiento oscilatorio de un péndulo simple",
+        image: "https://via.placeholder.com/600x400/28a745/ffffff?text=Péndulo+Simple+-+Movimiento+Armónico",
+        imageCaption: "Movimiento oscilatorio del péndulo",
+        context: "Un péndulo simple sigue un movimiento armónico descrito por la función: θ(t) = 30°·sin(2πt), donde θ es el ángulo en grados y t el tiempo en segundos.",
         questions: [
             {
-                text: "¿Cuál es la amplitud máxima del movimiento?",
+                text: "¿Cuál es la amplitud máxima del movimiento angular?",
                 type: "numeric",
-                answer: "3.606",
-                unit: "cm",
-                hint: "Calcula √(A² + B²) para la amplitud"
+                answer: "30",
+                unit: "grados",
+                hint: "La amplitud es el coeficiente que multiplica a la función seno"
             },
             {
                 text: "¿Cuál es el periodo de oscilación?",
                 type: "numeric",
-                answer: "2",
+                answer: "1",
                 unit: "segundos", 
-                hint: "Periodo = 2π/ω"
+                hint: "El periodo es 2π dividido por el coeficiente del tiempo dentro del seno"
             },
             {
-                text: "¿En qué posición se encuentra en t = 0.5 segundos?",
+                text: "¿Cuál es la posición angular en t = 0.25 segundos?",
                 type: "numeric",
-                answer: "3",
-                unit: "cm",
-                hint: "Sustituye t=0.5 en la función"
+                answer: "30",
+                unit: "grados",
+                hint: "Sustituye t=0.25 en la función: 30·sin(2π×0.25)"
             }
         ]
     }
@@ -74,7 +74,7 @@ let currentModule = null;
 function checkAuthentication() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
-        window.location.href = 'index.html';
+        window.location.href = '/AFO/index.html';
         return null;
     }
     return currentUser;
@@ -97,7 +97,7 @@ function loadExercise() {
     currentExercise = exercises[module];
     
     if (!currentExercise) {
-        window.location.href = 'dashboard.html';
+        window.location.href = '/AFO/dashboard.html';
         return;
     }
     
@@ -106,7 +106,23 @@ function loadExercise() {
     document.getElementById('moduleBadge').textContent = currentExercise.module;
     document.getElementById('difficultyBadge').textContent = currentExercise.difficulty;
     document.getElementById('exerciseDescription').textContent = currentExercise.description;
-    document.getElementById('exerciseImage').src = currentExercise.image;
+    
+    // Cargar imagen con manejo de errores
+    const exerciseImage = document.getElementById('exerciseImage');
+    exerciseImage.src = currentExercise.image;
+    exerciseImage.alt = currentExercise.imageCaption;
+    
+    // Verificar que la imagen se carga
+    exerciseImage.onload = function() {
+        console.log('✅ Imagen cargada correctamente:', this.src);
+    };
+    exerciseImage.onerror = function() {
+        console.log('❌ Error cargando imagen:', this.src);
+        // Fallback a placeholder si la imagen no existe
+        this.src = 'https://via.placeholder.com/600x400/6c757d/ffffff?text=Gráfico+No+Disponible';
+        this.alt = 'Gráfico no disponible';
+    };
+    
     document.getElementById('imageCaption').textContent = currentExercise.imageCaption;
     document.getElementById('contextText').textContent = currentExercise.context;
     
@@ -123,6 +139,8 @@ function loadExercise() {
             answerInput.nextElementSibling.textContent = question.unit;
         }
     });
+    
+    console.log('Ejercicio cargado:', currentExercise.title);
 }
 
 // Función para validar respuestas
@@ -133,7 +151,14 @@ function validateAnswers(userAnswers) {
     currentExercise.questions.forEach((question, index) => {
         const userAnswer = userAnswers[index];
         const correctAnswer = question.answer;
-        const isCorrect = Math.abs(parseFloat(userAnswer) - parseFloat(correctAnswer)) < 0.01;
+        
+        // Validación numérica con tolerancia
+        let isCorrect = false;
+        if (userAnswer && !isNaN(userAnswer) && !isNaN(correctAnswer)) {
+            const userNum = parseFloat(userAnswer);
+            const correctNum = parseFloat(correctAnswer);
+            isCorrect = Math.abs(userNum - correctNum) < 0.01;
+        }
         
         if (isCorrect) correctCount++;
         
@@ -164,25 +189,37 @@ function showResults(validationResults) {
     
     let resultsHTML = `
         <div class="results-score ${getScoreClass(validationResults.score)}">
-            Puntuación: ${validationResults.score}%
+            <h4>Puntuación: ${validationResults.score}%</h4>
         </div>
-        <p>Respuestas correctas: ${validationResults.correctCount}/${validationResults.totalQuestions}</p>
+        <p class="text-center"><strong>Respuestas correctas:</strong> ${validationResults.correctCount}/${validationResults.totalQuestions}</p>
+        <hr>
     `;
     
     validationResults.results.forEach((result, index) => {
+        const icon = result.isCorrect ? '✅' : '❌';
+        const badgeClass = result.isCorrect ? 'bg-success' : 'bg-danger';
+        
         resultsHTML += `
-            <div class="results-item ${result.isCorrect ? 'correct' : 'incorrect'}">
-                <strong>Pregunta ${index + 1}:</strong> ${result.question}<br>
-                <strong>Tu respuesta:</strong> ${result.userAnswer || 'Sin responder'} ${result.unit}<br>
-                <strong>Respuesta correcta:</strong> ${result.correctAnswer} ${result.unit}<br>
-                ${!result.isCorrect ? `<small class="text-muted"><i class="fas fa-lightbulb me-1"></i>${result.hint}</small>` : ''}
+            <div class="results-item ${result.isCorrect ? 'correct' : 'incorrect'} mb-3 p-3 rounded">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <strong>Pregunta ${index + 1}</strong>
+                    <span class="badge ${badgeClass}">${icon} ${result.isCorrect ? 'Correcta' : 'Incorrecta'}</span>
+                </div>
+                <p class="mb-2"><strong>Pregunta:</strong> ${result.question}</p>
+                <p class="mb-1"><strong>Tu respuesta:</strong> ${result.userAnswer || 'Sin responder'} ${result.unit}</p>
+                <p class="mb-2"><strong>Respuesta correcta:</strong> ${result.correctAnswer} ${result.unit}</p>
+                ${!result.isCorrect ? `
+                    <div class="alert alert-info mt-2 p-2">
+                        <small><i class="fas fa-lightbulb me-1"></i><strong>Pista:</strong> ${result.hint}</small>
+                    </div>
+                ` : ''}
             </div>
         `;
     });
     
     resultsHTML += `
-        <div class="mt-3">
-            <strong>Retroalimentación:</strong><br>
+        <div class="mt-4 p-3 bg-light rounded">
+            <strong>📊 Retroalimentación:</strong><br>
             ${getFeedbackMessage(validationResults.score)}
         </div>
     `;
@@ -227,7 +264,14 @@ function handleSubmit(event) {
     // Validar que todas las preguntas tengan respuesta
     const emptyAnswers = userAnswers.filter(answer => answer === '');
     if (emptyAnswers.length > 0) {
-        alert('Por favor responde todas las preguntas antes de enviar.');
+        showNotification('Por favor responde todas las preguntas antes de enviar.', 'warning');
+        return;
+    }
+    
+    // Validar que las respuestas sean numéricas
+    const invalidAnswers = userAnswers.filter(answer => isNaN(answer) && answer !== '');
+    if (invalidAnswers.length > 0) {
+        showNotification('Por favor ingresa solo valores numéricos en las respuestas.', 'warning');
         return;
     }
     
@@ -236,6 +280,32 @@ function handleSubmit(event) {
     
     // Guardar resultados en localStorage para estadísticas
     saveExerciseResults(validationResults);
+}
+
+// Función para mostrar notificaciones
+function showNotification(message, type = 'info') {
+    // Remover notificaciones anteriores
+    const existingNotification = document.querySelector('.exercise-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type} alert-dismissible fade show exercise-notification mt-3`;
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    const form = document.getElementById('exerciseForm');
+    form.parentNode.insertBefore(notification, form);
+    
+    // Auto-remover después de 5 segundos
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
 }
 
 // Función para guardar resultados
@@ -253,6 +323,8 @@ function saveExerciseResults(results) {
     
     exerciseHistory.push(exerciseResult);
     localStorage.setItem('exerciseHistory', JSON.stringify(exerciseHistory));
+    
+    console.log('Resultados guardados:', exerciseResult);
 }
 
 // Función para limpiar respuestas
@@ -261,6 +333,7 @@ function resetForm() {
     document.querySelectorAll('.answer-input').forEach(input => {
         input.classList.remove('correct', 'incorrect');
     });
+    showNotification('Formulario limpiado correctamente.', 'info');
 }
 
 // Función para inicializar la página
@@ -275,23 +348,22 @@ function initializeExercisePage() {
     document.getElementById('exerciseForm').addEventListener('submit', handleSubmit);
     document.getElementById('resetBtn').addEventListener('click', resetForm);
     document.getElementById('cancelBtn').addEventListener('click', () => {
-        window.location.href = 'dashboard.html';
+        window.location.href = '/AFO/dashboard.html';
     });
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
         e.preventDefault();
         if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
             localStorage.removeItem('currentUser');
-            window.location.href = 'index.html';
+            window.location.href = '/AFO/index.html';
         }
     });
     document.getElementById('nextExerciseBtn').addEventListener('click', function() {
-        // Recargar página con mismo módulo (en futuro: siguiente ejercicio)
+        // Recargar página con mismo módulo
         window.location.reload();
     });
+    
+    console.log('Página de ejercicio inicializada correctamente');
 }
 
 // Inicializar cuando el DOM esté cargado
-
 document.addEventListener('DOMContentLoaded', initializeExercisePage);
-
-
