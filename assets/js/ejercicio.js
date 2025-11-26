@@ -33,34 +33,34 @@ const exercises = {
         ]
     },
     trigonometric: {
-        title: "Ondas Senoidales - Péndulo Simple",
+        title: "Ondas Senoidales - Muelle",
         module: "Funciones Trigonométricas", 
-        difficulty: "Básico",
-        description: "Analiza el movimiento oscilatorio de un péndulo simple",
-        image: "https://via.placeholder.com/600x400/28a745/ffffff?text=Péndulo+Simple+-+Movimiento+Armónico",
-        imageCaption: "Movimiento oscilatorio del péndulo",
-        context: "Un péndulo simple sigue un movimiento armónico descrito por la función: θ(t) = 30°·sin(2πt), donde θ es el ángulo en grados y t el tiempo en segundos.",
+        difficulty: "Intermedio",
+        description: "Analiza el movimiento armónico simple de un muelle",
+        image: "https://via.placeholder.com/600x400/28a745/ffffff?text=Ondas+Senoidales",
+        imageCaption: "Movimiento oscilatorio del muelle",
+        context: "Un muelle sigue un movimiento armónico simple descrito por la función: x(t) = 2·sin(πt) + 3·cos(πt), donde x es la posición en cm y t el tiempo en segundos.",
         questions: [
             {
-                text: "¿Cuál es la amplitud máxima del movimiento angular?",
+                text: "¿Cuál es la amplitud máxima del movimiento?",
                 type: "numeric",
-                answer: "30",
-                unit: "grados",
-                hint: "La amplitud es el coeficiente que multiplica a la función seno"
+                answer: "3.606",
+                unit: "cm",
+                hint: "Calcula √(A² + B²) para la amplitud"
             },
             {
                 text: "¿Cuál es el periodo de oscilación?",
                 type: "numeric",
-                answer: "1",
+                answer: "2",
                 unit: "segundos", 
-                hint: "El periodo es 2π dividido por el coeficiente del tiempo dentro del seno"
+                hint: "Periodo = 2π/ω"
             },
             {
-                text: "¿Cuál es la posición angular en t = 0.25 segundos?",
+                text: "¿En qué posición se encuentra en t = 0.5 segundos?",
                 type: "numeric",
-                answer: "30",
-                unit: "grados",
-                hint: "Sustituye t=0.25 en la función: 30·sin(2π×0.25)"
+                answer: "3",
+                unit: "cm",
+                hint: "Sustituye t=0.5 en la función"
             }
         ]
     }
