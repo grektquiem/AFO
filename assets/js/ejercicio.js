@@ -6,7 +6,7 @@ const exercises = {
         difficulty: "Intermedio",
         description: "Analiza el movimiento de un proyectil lanzado desde el suelo",
         image: "/AFO/assets/img/E1.png",
-        imageCaption: "Trayectoria parabólica del proyectil - Altura vs Tiempo",
+        imageCaption: "Trayectoria parabólica del proyectil",
         context: "Un proyectil es lanzado desde el suelo con una velocidad inicial de 50 m/s con un ángulo de 45°. La altura del proyectil sigue la función: h(t) = -5t² + 35.35t",
         questions: [
             {
@@ -37,7 +37,7 @@ const exercises = {
         module: "Funciones Trigonométricas", 
         difficulty: "Intermedio",
         description: "Analiza el movimiento armónico simple de un muelle",
-        image: "./assets/images/sine-wave.png",
+        image: "/AFO/assets/img/E2.png", // Si tienes otra imagen para trigonométricas
         imageCaption: "Movimiento oscilatorio del muelle",
         context: "Un muelle sigue un movimiento armónico simple descrito por la función: x(t) = 2·sin(πt) + 3·cos(πt), donde x es la posición en cm y t el tiempo en segundos.",
         questions: [
@@ -293,4 +293,5 @@ function initializeExercisePage() {
 // Inicializar cuando el DOM esté cargado
 
 document.addEventListener('DOMContentLoaded', initializeExercisePage);
+
 
