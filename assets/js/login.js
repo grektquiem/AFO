@@ -3,7 +3,8 @@ const users = [
     { username: 'marco', password: '1234', name: 'Marco Gonzalez', role: 'Estudiante', email: 'marco@infiniteafo.com' },
     { username: 'rodrigo', password: '1234', name: 'Rodrigo Terraza', role: 'Estudiante', email: 'rodrigo@infiniteafo.com' },
     { username: 'gabriel', password: '1234', name: 'Gabriel Villa', role: 'Estudiante', email: 'gabriel@infiniteafo.com' },
-    { username: 'matias', password: '1234', name: 'Matias Flores', role: 'Estudiante', email: 'matias@infiniteafo.com' }
+    { username: 'matias', password: '1234', name: 'Matias Flores', role: 'Estudiante', email: 'matias@infiniteafo.com' },
+    { username: 'tester', password: 'prueba123', name: 'Usuario de Prueba', role: 'Estudiante', email: 'tester@infiniteafo.com' }
 ];
 
 // Función para validar el login
@@ -201,3 +202,4 @@ function initializeApp() {
 
 // Inicializar cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', initializeApp);
+
