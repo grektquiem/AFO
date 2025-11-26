@@ -5,7 +5,7 @@ const exercises = {
         module: "Funciones Cuadráticas",
         difficulty: "Intermedio",
         description: "Analiza el movimiento de un proyectil lanzado desde el suelo",
-        image: "/AFO/assets/img/E1",
+        image: "/AFO/assets/img/E1.png",
         imageCaption: "Trayectoria parabólica del proyectil - Altura vs Tiempo",
         context: "Un proyectil es lanzado desde el suelo con una velocidad inicial de 50 m/s con un ángulo de 45°. La altura del proyectil sigue la función: h(t) = -5t² + 35.35t",
         questions: [
@@ -293,3 +293,4 @@ function initializeExercisePage() {
 // Inicializar cuando el DOM esté cargado
 
 document.addEventListener('DOMContentLoaded', initializeExercisePage);
+
