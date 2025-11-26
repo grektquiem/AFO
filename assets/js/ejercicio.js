@@ -33,11 +33,11 @@ const exercises = {
         ]
     },
     trigonometric: {
-        title: "Ondas Senoidales - Muelle",
+        title: "El Muelle",
         module: "Funciones Trigonométricas", 
         difficulty: "Intermedio",
         description: "Analiza el movimiento armónico simple de un muelle",
-        image: "https://via.placeholder.com/600x400/28a745/ffffff?text=Ondas+Senoidales",
+        image: "/AFO/assets/img/E2.png",
         imageCaption: "Movimiento oscilatorio del muelle",
         context: "Un muelle sigue un movimiento armónico simple descrito por la función: x(t) = 2·sin(πt) + 3·cos(πt), donde x es la posición en cm y t el tiempo en segundos.",
         questions: [
@@ -367,3 +367,4 @@ function initializeExercisePage() {
 
 // Inicializar cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', initializeExercisePage);
+
