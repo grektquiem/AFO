@@ -44,7 +44,7 @@ function validateLogin(event) {
                 window.AppUtils.redirectTo('dashboard.html');
             } else {
                 // Fallback si utils.js no está cargado
-                window.location.href = 'dashboard.html';
+                window.location.href = '/AFO/dashboard.html';
             }
         }, 1000);
     } else {
@@ -88,7 +88,7 @@ function handleForgotPassword(e) {
     if (window.AppUtils && window.AppUtils.redirectTo) {
         window.AppUtils.redirectTo('contraseña-olvidada.html');
     } else {
-        window.location.href = 'contraseña-olvidada.html';
+        window.location.href = '/AFO/contraseña-olvidada.html';
     }
 }
 
@@ -100,7 +100,7 @@ function handleRegister(e) {
     if (window.AppUtils && window.AppUtils.redirectTo) {
         window.AppUtils.redirectTo('registrarse.html');
     } else {
-        window.location.href = 'registrarse.html';
+        window.location.href = '/AFO/registrarse.html';
     }
 }
 
@@ -114,7 +114,7 @@ function checkExistingSession() {
         if (window.AppUtils && window.AppUtils.redirectTo) {
             window.AppUtils.redirectTo('dashboard.html');
         } else {
-            window.location.href = 'dashboard.html';
+            window.location.href = '/AFO/dashboard.html';
         }
     }
 }
@@ -202,4 +202,3 @@ function initializeApp() {
 
 // Inicializar cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', initializeApp);
-
