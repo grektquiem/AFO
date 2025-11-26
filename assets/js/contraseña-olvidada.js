@@ -3,7 +3,8 @@ const users = [
     { username: 'marco', password: '1234', name: 'Marco Gonzalez', email: 'marco@infiniteafo.com' },
     { username: 'rodrigo', password: '1234', name: 'Rodrigo Terraza', email: 'rodrigo@infiniteafo.com' },
     { username: 'gabriel', password: '1234', name: 'Gabriel Villa', email: 'gabriel@infiniteafo.com' },
-    { username: 'matias', password: '1234', name: 'Matias Flores', email: 'matias@infiniteafo.com' }
+    { username: 'matias', password: '1234', name: 'Matias Flores', email: 'matias@infiniteafo.com' },
+    { username: 'tester', password: 'prueba123', name: 'Usuario de Prueba', email: 'tester@infiniteafo.com' }
 ];
 
 // Función para manejar el envío del formulario de recuperación
@@ -76,4 +77,5 @@ function initializeForgotPassword() {
 }
 
 // Inicializar cuando el DOM esté cargado
+
 document.addEventListener('DOMContentLoaded', initializeForgotPassword);
