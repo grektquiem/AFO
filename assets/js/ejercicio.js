@@ -5,8 +5,8 @@ const exercises = {
         module: "Funciones Cuadráticas",
         difficulty: "Intermedio",
         description: "Analiza el movimiento de un proyectil lanzado desde el suelo",
-        image: "./assets/images/parabolic-motion.png",
-        imageCaption: "Trayectoria parabólica del proyectil",
+        image: "/AFO/assets/img/E1",
+        imageCaption: "Trayectoria parabólica del proyectil - Altura vs Tiempo",
         context: "Un proyectil es lanzado desde el suelo con una velocidad inicial de 50 m/s con un ángulo de 45°. La altura del proyectil sigue la función: h(t) = -5t² + 35.35t",
         questions: [
             {
@@ -14,7 +14,7 @@ const exercises = {
                 type: "numeric",
                 answer: "62.5",
                 unit: "metros",
-                hint: "Usa la fórmula del vértice de la parábola"
+                hint: "Usa la fórmula del vértice de la parábola: h_max = -Δ/(4a)"
             },
             {
                 text: "¿En qué tiempo alcanza la altura máxima?",
@@ -291,4 +291,5 @@ function initializeExercisePage() {
 }
 
 // Inicializar cuando el DOM esté cargado
+
 document.addEventListener('DOMContentLoaded', initializeExercisePage);
