@@ -93,3 +93,265 @@
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
 }
+
+/* ===== ESTILOS RESPONSIVE PARA EL GRÁFICO ===== */
+
+/* Contenedor principal del gráfico */
+.card-body {
+    position: relative;
+    height: 400px;
+    padding: 1rem;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 1200px) {
+    .card-body {
+        height: 380px;
+    }
+    
+    .welcome-section {
+        padding: 1.5rem;
+    }
+    
+    .module-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .card-body {
+        height: 350px;
+        padding: 0.75rem;
+    }
+    
+    .sidebar {
+        margin-bottom: 1rem;
+    }
+    
+    .welcome-section h2 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        height: 320px;
+        padding: 0.5rem;
+    }
+    
+    /* Mejorar el header del card en móviles */
+    .card-header h5 {
+        font-size: 1.1rem;
+    }
+    
+    /* Ajustes para el sidebar en móviles */
+    .sidebar {
+        padding: 0.75rem;
+    }
+    
+    .sidebar-link {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Ajustes para las cards de módulos */
+    .module-card {
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .module-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .module-card h4 {
+        font-size: 1.3rem;
+    }
+    
+    .welcome-section {
+        padding: 1.25rem;
+    }
+    
+    .welcome-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        height: 280px;
+        padding: 0.25rem;
+    }
+    
+    .card-header h5 {
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    /* Mejorar legibilidad de métricas en móviles */
+    .metric-card {
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .metric-card h6 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-card small {
+        font-size: 0.8rem;
+    }
+    
+    .progress {
+        height: 6px;
+    }
+    
+    /* Ajustes para navbar en móviles */
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    
+    /* Ajustes para el contenido principal */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .welcome-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .welcome-section h2 {
+        font-size: 1.4rem;
+    }
+    
+    .welcome-section p {
+        font-size: 0.9rem;
+    }
+    
+    /* Mejoras para las cards de módulos en móviles pequeños */
+    .module-card {
+        padding: 1rem;
+    }
+    
+    .module-card h4 {
+        font-size: 1.2rem;
+    }
+    
+    .module-card p {
+        font-size: 0.85rem;
+    }
+    
+    /* Ajustes para la tabla de historial */
+    .table-responsive {
+        font-size: 0.8rem;
+    }
+    
+    .table th, .table td {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .card-body {
+        height: 250px;
+    }
+    
+    /* Ajustes para pantallas muy pequeñas */
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .welcome-section h2 {
+        font-size: 1.3rem;
+    }
+    
+    .welcome-section p {
+        font-size: 0.85rem;
+    }
+    
+    .module-card {
+        padding: 0.75rem;
+    }
+    
+    .module-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .metric-card {
+        padding: 0.75rem;
+    }
+    
+    .metric-card h6 {
+        font-size: 0.85rem;
+    }
+    
+    /* Ajustes para botones en móviles muy pequeños */
+    .btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .start-module-btn {
+        font-size: 0.8rem;
+    }
+}
+
+/* Mejoras de accesibilidad y UX */
+@media (hover: none) {
+    .module-card:hover {
+        transform: none;
+    }
+    
+    .sidebar-link:hover {
+        background-color: transparent;
+    }
+    
+    .sidebar-item.active .sidebar-link:hover {
+        background-color: #007bff;
+    }
+}
+
+/* Soporte para orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .card-body {
+        height: 250px;
+    }
+    
+    .welcome-section {
+        padding: 1rem;
+    }
+    
+    .module-card {
+        padding: 1rem;
+    }
+}
+
+/* Mejoras para alta densidad de píxeles (retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .module-icon {
+        font-size: 2.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .module-icon {
+            font-size: 2rem;
+        }
+    }
+}
+
+/* Animaciones suaves para cambios de tamaño */
+.card-body, .chart-container {
+    transition: all 0.3s ease;
+}
